@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      # Mount the local app directory to the /code/app directory in the container    
+      # Mount the local app directory to the /code/app directory in the container
       - ./app:/code/app
     ports:
       - "8080:8080"

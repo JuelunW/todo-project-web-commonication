@@ -1,0 +1,33 @@
+@apiUrl = http://0.0.0.0:8080
+#@apiUrl = https://web-communication-git-web-communitation.2.rahtiapp.fi/rooms
+GET {{apiUrl}}
+
+###
+GET {{apiUrl}}/todos
+X-API-KEY: key_abc123
+
+###
+POST {{apiUrl}}/todos
+Content-Type: application/json
+X-API-KEY: key_abc123
+
+{
+    "category_id": 1,
+    "title": "str",
+    "done": 0
+}
+
+###
+PUT {{apiUrl}}/todos/10
+Content-Type: application/json
+X-API-KEY: key_abc123
+
+{
+    "category_id": 1,
+    "title": "Hi",
+    "done": 1
+}
+
+###
+DELETE  {{apiUrl}}/todos/10
+X-API-KEY: key_abc123
