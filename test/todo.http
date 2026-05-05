@@ -1,5 +1,7 @@
-@apiUrl = http://0.0.0.0:8080
-#@apiUrl = https://web-communication-git-web-communitation.2.rahtiapp.fi/rooms
+#@apiUrl = http://0.0.0.0:8080
+@apiUrl = https://todo-project-web-commonication-git-web-communitation.2.rahtiapp.fi
+
+###
 GET {{apiUrl}}
 
 ###
