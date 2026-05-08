@@ -70,17 +70,15 @@ class Todo(BaseModel):
     category_id: int
     title: str
     done: bool | None = False
-    created_at: datetime | None = datetime.now()
-    updated_at: datetime = datetime.now()
 
 @app.post("/todos")
 def post_todos(todo: Todo, user: dict = Depends(validate_key)):
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute("""
-                INSERT INTO todo_tasks (user_id, category_id, title, done, created_at, updated_at)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO todo_tasks (user_id, category_id, title, done)
+                VALUES (%s, %s, %s, %s)
                 RETURNING id
-                """, (user["id"], todo.category_id, todo.title, todo.done, todo.created_at, todo.updated_at,))
+                """, (user["id"], todo.category_id, todo.title, todo.done,))
         return cur.fetchone()
 
 @app.put("/todos/{id}")
@@ -94,10 +92,10 @@ def put_todos(id: int, todo: Todo, user: dict = Depends(validate_key)):
 
         cur.execute("""
                 UPDATE todo_tasks
-                SET category_id = %s, title = %s, done = %s, created_at = %s, updated_at = %s
+                SET category_id = %s, title = %s, done = %s, updated_at = CURRENT_TIMESTAMP
                 WHERE id = %s AND user_id = %s
                 RETURNING id
-                """, (todo.category_id, todo.title, todo.done, todo.created_at, todo.updated_at, id, user['id'],))
+                """, (todo.category_id, todo.title, todo.done, id, user['id'],))
         return cur.fetchall()
 
 @app.delete("/todos/{id}")
